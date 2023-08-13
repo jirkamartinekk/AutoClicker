@@ -1,20 +1,22 @@
-"""  pip install pyautogui
-    Parametry:
-    interval (float): interval mezi kliknutími v sekundách.
-    duration (float): doba, po kterou má být auto-clicker aktivní v sekundách.
-"""
 import pyautogui
 import time
 
 def autoclick(interval, duration):
     end_time = time.time() + duration
     while time.time() < end_time:
-        pyautogui.click()
-        time.sleep(interval)
+        try:
+            pyautogui.click()
+            time.sleep(interval)
+        except KeyboardInterrupt:
+            print("\nAuto-clicker byl ukončen.")
+            break
 
 if __name__ == "__main__":
-    interval = float(input("Zadejte interval mezi kliknutími (v sekundách): "))
-    duration = float(input("Zadejte dobu, po kterou chcete autoclicker spustit (v sekundách): "))
-    print("Auto-clicker bude spuštěn za 10 vteřin. Přesuňte kurzor na místo, kde chcete klikat.")
-    time.sleep(10)
-    autoclick(interval, duration)
+    try:
+        interval = float(input("Zadejte interval mezi kliknutími (v sekundách): "))
+        duration = float(input("Zadejte dobu, po kterou chcete autoclicker spustit (v sekundách): "))
+        print("Auto-clicker bude spuštěn za 5 vteřin. Přesuňte kurzor na místo, kde chcete klikat.")
+        time.sleep(5)
+        autoclick(interval, duration)
+    except KeyboardInterrupt:
+        print("\nAuto-clicker byl ukončen před spuštěním.")
